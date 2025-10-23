@@ -19,7 +19,7 @@ app.post('/submit',  async (req, res) => {
     const { name, course } = req.body;
     const user = new userschema({ name, course });
     await user.save();
-    console.log("✅ User data saved successfully");
+    console.log(" User data saved successfully");
     const doc = new PDFDocument();
    const filePath = path.join(__dirname,'generated',`${name}_details.pdf`);
     if(!fs.existsSync(path.join(__dirname,'generated'))){
@@ -27,7 +27,7 @@ app.post('/submit',  async (req, res) => {
     }
     const stream = fs.createWriteStream(filePath);
     doc.pipe(stream);
-    doc.fontSize(22).text('User Details', {align:'center'});
+    doc.fontSize(28).text('User Details', {align:'center'});
     doc.moveDown();
     doc.fontSize(16).text(`Name: ${name}`);
     doc.text(`Course: ${course}`);
@@ -40,7 +40,7 @@ app.post('/submit',  async (req, res) => {
 
     
   } catch (err) {
-    console.error('❌ Error saving user data:', err);
+    console.error('Error saving user data:', err);
     res.send('Error saving user data');
   }
 });
